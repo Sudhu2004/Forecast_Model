@@ -1,0 +1,4 @@
+jsons
+numpy
+statsmodels
+flask
