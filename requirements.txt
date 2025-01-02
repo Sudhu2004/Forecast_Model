@@ -1,5 +1,7 @@
-jsons
-numpy
 statsmodels
 flask
 pyngrok
+jsons==1.6.2
+numpy>=1.21.0
+pmdarima==2.0.3
+
