@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from pyngrok import ngrok
 
 from cashflow_model import process_cashflow_data
-
+import time
 
 app = Flask(__name__)
 
@@ -20,6 +20,7 @@ def predict():
     #     print(f"Current Exception : {str(e)}")
     #     return jsonify({"status": "error", "message": str(e)}), 400
 
+    start = time.time()
     data = request.json  # Receive the JSON data
     if isinstance(data, list):
         try:
@@ -38,12 +39,17 @@ def predict():
             print("Initializing CashFlow data")
             result = process_cashflow_data(json_data)
             print("Success Data processed")
+            print(f"Time Taken: {time.time() - start}")
             return jsonify({"status": "success", "data": result}), 200
         except Exception as e:
             print(f"Current Exception : {str(e)}")
+            print(f"Time Taken: {time.time() - start}")
             return jsonify({"status": "error", "data": str(e)}), 400
+
     else:
+        print(f"Time Taken: {time.time() - start}")
         return jsonify({"status": "error", "data": {}}), 400
+    
     
     
 def run_flask():
